@@ -1,8 +1,7 @@
 # Virtual environments
 .venv/
 venv/
-env/
-ENV/
+
 
 # Python cache
 __pycache__/
@@ -12,3 +11,8 @@ __pycache__/
 # IDE folders
 .vscode/
 .idea/
+wandb/
+outputs/
+data/
+checkpoint*/
+.env

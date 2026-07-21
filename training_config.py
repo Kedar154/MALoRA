@@ -33,11 +33,11 @@ class TrainingConfig:
     #                                  solutions without mid-truncation)
     SEED: int            = 42
     NUM_EPOCHS: int      = 1
-    TRAIN_BATCH: int     = 16
-    EVAL_BATCH: int      = 16
-    CONTEXT_LENGTH: int  = 2048
+    TRAIN_BATCH: int     = 3
+    EVAL_BATCH: int      = 3
+    CONTEXT_LENGTH: int  = 8192
     LR: float            = 1e-5
-    EVAL_STEPS: int      = 200
+    EVAL_STEPS: int      = 100
     GRAD_ACCUM: int      = 2
     MAX_STEPS: int       = -1             # -1 for full training
     LOGGING_STEPS: int   = 25
@@ -46,12 +46,18 @@ class TrainingConfig:
     USE_8BIT_ADAM: bool  = True
     MIXED_PRECISION: str = "bf16"
     QUANTIZE: bool       = False          # full bf16 — H100 has headroom
-    MODEL_ID: str        = "Qwen/Qwen2.5-Coder-3B-Instruct"
-
+    MODEL_ID: str        = "Qwen/Qwen2.5-3B-Instruct"
+    USE_LORA: bool = True
     # ── Checkpoint / logging ──────────────────────────────────────────────────
-    RESUME_FROM: str | None   = None
+    RESUME_FROM: str | None   = "/teamspace/studios/this_studio/malora/checkpoint-1600"
     OUTPUT_DIR: str           = "./outputs/malora"
     NUM_CHECKPOINT_LIMIT: int = 2
     LOGDIR: str               = "./logs"
-    RUN_NAME: str             = "malora-opencode-run1"
+    RUN_NAME: str             = "malora-15k-TC-1600-run1"
     PROJECT_NAME: str         = "malora"
+
+
+    DS_PATH: str= "/teamspace/studios/this_studio/malora/data"
+    WANDB_ID: str= "kedar15418-iit-indore"
+    #HFT: str
+    HF_REPO: str = "Kedar-15418/Nemotron-Cascade-2-SWE"

@@ -58,8 +58,9 @@ ROUTER_AUX_COEF      = conf.ROUTER_AUX_COEF
 QUANTIZE             = conf.QUANTIZE
 USE_8BIT_ADAM        = conf.USE_8BIT_ADAM
 RESUME_FROM          = conf.RESUME_FROM
-
-ATTENTION_LORA_ENABLED = True  # toggle here for aton/atoff runs
+DS_PATH = conf.DS_PATH
+WANDB_ID = conf.WANDB_ID
+ATTENTION_LORA_ENABLED = conf.USE_LORA  # toggle here for aton/atoff runs
 
 
 # ── QLoRA config ──────────────────────────────────────────────────────────────
@@ -246,7 +247,7 @@ def main():
     resume_from = resolve_checkpoint(RESUME_FROM, accelerator)
 
     os.environ["WANDB_PROJECT"] = PROJECT_NAME
-    os.environ["WANDB_ENTITY"]  = "godofwar_1007-indian-institute-of-technology-indore"
+    os.environ["WANDB_ENTITY"]  = WANDB_ID
 
     if accelerator.is_main_process:
         import wandb
@@ -266,17 +267,19 @@ def main():
 
     # ── Datasets ──────────────────────────────────────────────────────────────
     with accelerator.main_process_first():
-        if os.path.exists("data/train") and os.path.exists("data/eval"):
+        tp = os.path.join(DS_PATH, "train")
+        ep = os.path.join(DS_PATH, "eval")
+        if os.path.exists(tp) and os.path.exists(ep):
             if accelerator.is_main_process:
                 print("Loading datasets from disk...")
-            train_dataset = load_from_disk("data/train")
-            eval_dataset  = load_from_disk("data/eval")
+            train_dataset = load_from_disk(tp)
+            eval_dataset  = load_from_disk(ep)
         else:
             if accelerator.is_main_process:
                 print("Datasets not found — running make_dataset()...")
-            make_dataset()
-            train_dataset = load_from_disk("data/train")
-            eval_dataset  = load_from_disk("data/eval")
+            #make_dataset()
+            train_dataset = load_from_disk(tp)
+            eval_dataset  = load_from_disk(ep)
 
     tensor_cols   = ["input_ids", "attention_mask", "labels"]
     train_dataset = train_dataset.select_columns([c for c in tensor_cols if c in train_dataset.column_names])

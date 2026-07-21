@@ -9,9 +9,10 @@ Usage:
 import argparse
 import os
 from huggingface_hub import snapshot_download
-
-HF_TOKEN   = "HF_TOKEN"   # ← update this
-HF_REPO_ID = "godofwar1007/moelora"
+from training_config import TrainingConfig
+conf = TrainingConfig()
+HF_TOKEN   = conf.HFT   # ← update this
+HF_REPO_ID = conf.HF_REPO
 
 def download(hf_folder: str, local_out: str):
     print(f"Downloading {HF_REPO_ID}/{hf_folder} → {local_out}")
