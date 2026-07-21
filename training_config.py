@@ -49,15 +49,15 @@ class TrainingConfig:
     MODEL_ID: str        = "Qwen/Qwen2.5-3B-Instruct"
     USE_LORA: bool = True
     # ── Checkpoint / logging ──────────────────────────────────────────────────
-    RESUME_FROM: str | None   = "/teamspace/studios/this_studio/malora/checkpoint-1600"
+    RESUME_FROM: str | None   = "/teamspace/studios/this_studio/malora/outputs/malora/checkpoint-2000"
     OUTPUT_DIR: str           = "./outputs/malora"
     NUM_CHECKPOINT_LIMIT: int = 2
     LOGDIR: str               = "./logs"
-    RUN_NAME: str             = "malora-15k-TC-1600-run1"
+    RUN_NAME: str             = "malora-15k-TC-2000-run1"
     PROJECT_NAME: str         = "malora"
 
 
     DS_PATH: str= "/teamspace/studios/this_studio/malora/data"
     WANDB_ID: str= "kedar15418-iit-indore"
-    #HFT: str
+    #HFT: str = 
     HF_REPO: str = "Kedar-15418/Nemotron-Cascade-2-SWE"

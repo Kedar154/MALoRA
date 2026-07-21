@@ -1,9 +1,10 @@
 import argparse
 import os
 from huggingface_hub import HfApi
-
-HF_TOKEN   = "" # i have hardcoded my hf token as of now ....please dont fuck the repo
-HF_REPO_ID = "godofwar1007/moelora"
+from training_config import TrainingConfig
+conf = TrainingConfig()
+HF_TOKEN   = conf.HFT # i have hardcoded my hf token as of now ....please dont fuck the repo
+HF_REPO_ID = conf.HF_REPO
 
 def push(local_dir: str, repo_id: str, repo_folder: str, commit_message: str):
     if not os.path.exists(local_dir):
